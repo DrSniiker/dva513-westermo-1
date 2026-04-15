@@ -1,0 +1,17 @@
+services:
+  model-trainer:
+    build: .
+    image: dva513-westermo:latest
+    working_dir: /app/westermo_ann
+    environment:
+      # Inside-container dataset locations (mounted from host paths below).
+      GOOSE_DATA_DIR: /datasets/goose
+      UNSW_DATA_DIR: /datasets/unsw
+    volumes:
+      # Host paths can be changed in .env
+      - ${GOOSE_DATASET_PATH:-./data/goose}:/datasets/goose:ro
+      - ${UNSW_DATASET_PATH:-./data/unsw}:/datasets/unsw:ro
+      # Keep generated outputs on the host.
+      - ./westermo_ann/outputs:/app/westermo_ann/outputs
+      - ./westermo_ann/reports:/app/westermo_ann/reports
+    command: ["python", "unsw_nb15_ann.py"]

@@ -1,4 +1,5 @@
 import json
+import os
 import random
 from copy import deepcopy
 from pathlib import Path
@@ -16,7 +17,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # Dataset paths
 BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "IEC-61850" / "preprocessed csv files" / "preprocessed csv files"
+DEFAULT_DATA_DIR = BASE_DIR / "IEC-61850" / "preprocessed csv files" / "preprocessed csv files"
+DATA_DIR = Path(os.getenv("GOOSE_DATA_DIR", str(DEFAULT_DATA_DIR))).expanduser().resolve()
 DATASETS = {
     "message_injection": {
         "train": DATA_DIR / "message_injection_train.csv",

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -18,8 +19,10 @@ from splits import stratified_split
 
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-TRAIN_CSV = BASE_DIR / "archive" / "UNSW_NB15_training-set.csv"
-TEST_CSV = BASE_DIR / "archive" / "UNSW_NB15_testing-set.csv"
+DEFAULT_UNSW_DATA_DIR = BASE_DIR / "archive"
+UNSW_DATA_DIR = Path(os.getenv("UNSW_DATA_DIR", str(DEFAULT_UNSW_DATA_DIR))).expanduser().resolve()
+TRAIN_CSV = UNSW_DATA_DIR / "UNSW_NB15_training-set.csv"
+TEST_CSV = UNSW_DATA_DIR / "UNSW_NB15_testing-set.csv"
 TARGET_COL = "attack_cat"
 RANDOM_STATE = 42
 

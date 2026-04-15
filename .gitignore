@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+
+.env
+
+westermo_ann/outputs/
+westermo_ann/reports/
+
+data/

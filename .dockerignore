@@ -1,0 +1,14 @@
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+
+# Local artifacts and large datasets should not be in image context.
+data/
+archive/
+IEC-61850/
+westermo_ann/outputs/
+westermo_ann/reports/
