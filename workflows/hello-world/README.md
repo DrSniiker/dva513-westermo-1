@@ -19,7 +19,10 @@ source .venv/bin/activate
 ```cmd
 .venv/bin/activate.bat
 ```
-
+# Deactivate
+```bash
+deactivate
+```
 # Workflow
 Once activated, `uv` will automatically manage dependencies.
 * Sync dependencies:
