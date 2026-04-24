@@ -64,3 +64,4 @@ deactivate
 ```
 # uv version
 `uv 0.11.7 (9d177269e 2026-04-15 x86_64-unknown-linux-gnu)`
+https://github.com/astral-sh/uv/releases/tag/0.11.7
