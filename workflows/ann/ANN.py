@@ -64,10 +64,6 @@ features_goose = [
     "timestampDiff",
     "delay",
     "gooseLen",
-    "vsbARmsue",
-    "extra1",
-    "extra2",
-    "extra3"
 ]
 features_extra = [
     "gooseLengthDiff",
@@ -76,7 +72,6 @@ features_extra = [
     "timestampDiff",
     "delay",
     "gooseLen",
-    "vsbARmsue",
     "extra1",
     "extra2",
     "extra3"
