@@ -1,0 +1,9 @@
+﻿outputs/
+reports/
+*.pt
+*.csv
+*.json
+*.png
+*.npy
+*.npz
+__pycache__/

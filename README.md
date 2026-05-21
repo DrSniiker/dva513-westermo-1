@@ -1,57 +1,48 @@
 # dva513-westermo-1
 
-Westermo project course ANN network pruning.
+Westermo / DVA513: **ERENO IEC-61850 binary IDS** and related ANN experiments.
 
-## Docker setup
+## Team quick start (ERENO binary IDS)
 
-This repository includes a Docker setup so each group member can run the same code while using dataset folders from their own machine.
+All Python code and run instructions:
+
+**[`westermo_ann/README.md`](westermo_ann/README.md)**
+
+```powershell
+cd westermo_ann
+pip install -r requirements.txt
+# Set your train/test CSV paths (see README), then:
+.\scripts\run_ereno_binary_baseline_v1.cmd
+```
+
+Results (local, gitignored): `westermo_ann/reports/binary_baseline_v1_eval.md` and `binary_baseline_v1.json`.
+
+---
+
+## Docker setup (optional — IEC-61850 / UNSW paths)
+
+Each member uses dataset folders from their own machine via `.env`.
 
 ### 1) Configure dataset paths
-
-Copy `.env.example` to `.env` and set absolute dataset paths:
 
 ```bash
 cp .env.example .env
 ```
 
 Set:
-- `GOOSE_DATASET_PATH`: directory containing the IEC-61850 preprocessed CSV files.
-- `UNSW_DATASET_PATH`: directory containing `UNSW_NB15_training-set.csv` and `UNSW_NB15_testing-set.csv`.
 
-### 2) Build image
+- `GOOSE_DATASET_PATH` — IEC-61850 preprocessed CSV directory
+- `UNSW_DATASET_PATH` — UNSW NB15 archive directory
+
+### 2) Build and run
 
 ```bash
 docker compose build
-```
-
-### 3) Run training
-
-Default command runs:
-
-```bash
-python unsw_nb15_ann.py
-```
-
-Start it with:
-
-```bash
 docker compose up
 ```
 
-### 4) Run the multiclass UNSW pipeline instead
+Default container command runs `unsw_nb15_ann.py`. For the ERENO streaming binary pipeline, run training inside the container with paths from `westermo_ann/README.md`.
 
-```bash
-docker compose run --rm model-trainer python src/modeling/train_multiclass.py
-```
+### Outputs
 
-## Outputs
-
-- `westermo_ann/outputs` is mounted from the host.
-- `westermo_ann/reports` is mounted from the host.
-
-Generated files stay on your machine and are not lost when the container exits.
-
-## Notes
-
-- Dataset paths are passed through volume mounts and environment variables, so teammates can use different local paths without changing code.
-- If you need GPU support later, we can add a CUDA-enabled image and runtime settings.
+- `westermo_ann/outputs` and `westermo_ann/reports` are mounted on the host.

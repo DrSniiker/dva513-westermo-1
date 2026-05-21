@@ -1,9 +1,40 @@
 __pycache__/
 *.py[cod]
+.venv/
+venv/
 
 .env
+.env.*
 
-westermo_ann/outputs/
-westermo_ann/reports/
+# Experiment outputs
+**/outputs/
+**/reports/
+*.pt
+*.pth
+*.npy
+*.npz
+*.json
+*.png
 
+# Datasets (local per teammate)
+**/ereno-iec-61850-ids/
+**/IEC-61850/
+**/archive/
 data/
+*.csv
+*.arff
+
+# Local / scratch
+**/.vscode/
+**/agent-transcripts/
+**/_demo_*
+**/_sample_*
+RESTORE_CHECKLIST.md
+conversation_summary*.md
+CLAUDE.md
+
+.DS_Store
+Thumbs.db
+
+# Legacy local folder name (use westermo_ann/)
+c-Users-mkn25014-OneDrive/
