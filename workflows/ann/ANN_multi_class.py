@@ -58,18 +58,11 @@ features = None
 
 while not Dataset:
     choice = input(
-        "Which data do you want to use? (1 for BOTH, 2 for Ereno, 3 for PowerDuck): "
+        "Which data do you want to use? (2 for Ereno): "
     )
-
-    if choice == "1":
-        Dataset = "BOTH"
-        features = features_goose
-    elif choice == "2":
+    if choice == "2":
         Dataset = "Ereno"
         features = None
-    elif choice == "3":
-        Dataset = "PowerDuck"
-        features = features_goose
     else:
         print("Invalid choice, please try again.")
 
@@ -101,16 +94,15 @@ if not USE_SMOTE:
     else:
         print("Class weights will NOT be computed. The original class distribution will be maintained.")
 
-choice = input("Do you want to train with normal/attcks (y) or only with attacks? (y/n): ")
+choice = input("Do you want to train with normal/attcks (y) or (Works with Ereno only ) only with attacks? (y/n): ")
 if choice.lower() == "y":
     DONT_USE_NORMAL_IN_TRAIN = False
 else:
     DONT_USE_NORMAL_IN_TRAIN = True
 
 
-# batch_size = 512, 1024, 2048 , 4096 ,8192, 16384
 
-batch_size = 16384
+batch_size = 32  # 32, 256 or 2048
 epochs = 100
 learning_rate = 0.001
 Early_stop_patience = 10
@@ -510,22 +502,18 @@ print("'*************************Starting scaling and model building...\n")
 def create_model(input_dim, architecture):
     model = Sequential()
     model.add(Input(shape=(input_dim,)))
-
+    
     dense_count = 1
     for layer in architecture:
-        if isinstance(
-            layer, int
-        ):  # if it's an integer, it's the number of units for a Dense layer
+        if isinstance(layer, int):  # if it's an integer, it's the number of units for a Dense layer
             model.add(Dense(layer, activation="relu", name=f"dense_{dense_count}"))
             dense_count += 1
-        elif (
-            layer == "batch"
-        ):  # if it's the string "batch", it's a BatchNormalization layer
+        elif layer == "batch": # if it's the string "batch", it's a BatchNormalization layer
             model.add(BatchNormalization())
-        elif isinstance(layer, float):  # if it's a float, it's a dropout rate
+        elif isinstance(layer, float): # if it's a float, it's a dropout rate
             model.add(Dropout(layer))
-
-    model.add(Dense(1, activation="sigmoid", name="output"))
+            
+    model.add(Dense(len(target_only_attacks), activation="softmax", name="output"))
     return model
 
 def sparse_focal_loss(gamma=2.0):
@@ -624,7 +612,7 @@ for i, arch in enumerate(architectures, 1):
 
     Start_time = pd.Timestamp.now() # Start time for training the model, to calculate total time taken at the end of this architecture
 
-    base_model = create_model(len(features), architecture=arch, activation="softmax" )
+    base_model = create_model(len(features), architecture=arch )
     base_model.compile(
         optimizer=Adam(learning_rate=learning_rate),
         #loss="sparse_categorical_crossentropy",

@@ -76,9 +76,8 @@ while not features:
         print("Invalid choice, please try again.")
 
 
-# batch_size = 512, 1024, 2048 , 4096 ,8192, 16384
 
-batch_size = 16384
+batch_size = 2048  # 256 or 2048
 epochs = 100
 learning_rate = 0.001
 Early_stop_patience = 10
