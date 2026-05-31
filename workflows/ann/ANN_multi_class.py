@@ -29,7 +29,7 @@ from pathlib import Path
 from sklearn.preprocessing import LabelEncoder
 import random
 
-from shared_var import features_goose, features_9, features_13, create_model
+from shared_var import features_goose, features_9, features_13
 
 # TensorFlow use Keras 2
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
@@ -507,7 +507,26 @@ print("'*************************Starting scaling and model building...\n")
 # ==========================================
 # Define the model architecture and training loop
 # ==========================================
+def create_model(input_dim, architecture):
+    model = Sequential()
+    model.add(Input(shape=(input_dim,)))
 
+    dense_count = 1
+    for layer in architecture:
+        if isinstance(
+            layer, int
+        ):  # if it's an integer, it's the number of units for a Dense layer
+            model.add(Dense(layer, activation="relu", name=f"dense_{dense_count}"))
+            dense_count += 1
+        elif (
+            layer == "batch"
+        ):  # if it's the string "batch", it's a BatchNormalization layer
+            model.add(BatchNormalization())
+        elif isinstance(layer, float):  # if it's a float, it's a dropout rate
+            model.add(Dropout(layer))
+
+    model.add(Dense(1, activation="sigmoid", name="output"))
+    return model
 
 def sparse_focal_loss(gamma=2.0):
 
