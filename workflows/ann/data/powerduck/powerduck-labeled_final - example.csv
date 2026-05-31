@@ -1,0 +1,2 @@
+frameNum,ipal_id,Time,delay,source_file,class,attack_tag,attack_type,StNum,SqNum,gooseTimeAllowedtoLive,gooseLen,timestampDiff,tDiff,stDiff,sqDiff,gooseLengthDiff,cbStatusDiff,split
+2.0,1,1649675492.59933,0.051517,01-normal-1.pcapng.gz,normal,normal,normal,8.0,1557.0,3000.0,173.0,0.0,0.0,0.0,0.0,0.0,0,train

@@ -6,6 +6,13 @@ from sklearn.metrics import (
     matthews_corrcoef)
 import os
 import joblib
+from shared_var import features_goose
+
+
+print("=" * 55)
+print("This script is old, not changed due to that i switched to pruning awaer traning method. ")
+print("This script works with only 6 features. ")
+print("=" * 55)
 
 
 # This script applies Post-pruning to a set of pre-trained ANN models
@@ -51,7 +58,7 @@ threshold_csv_path = (
     f"./data/ANN_model/thresholds_{Dataset}.csv"  # CSV: filnamn, threshold
 )
 
-features = ["gooseLengthDiff", "stDiff", "sqDiff", "timestampDiff", "delay", "gooseLen"]
+features = features_goose
 
 
 # --- preparing - Only the test dataset ---
