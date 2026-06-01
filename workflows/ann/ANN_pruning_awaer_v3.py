@@ -224,7 +224,7 @@ def load_ereno_data():
 
     return df_val, df_train, df_test
 
-if not Dataset:
+if Dataset:
     if Dataset == "Ereno":
         df_val, df_train, df_test = load_ereno_data
 
